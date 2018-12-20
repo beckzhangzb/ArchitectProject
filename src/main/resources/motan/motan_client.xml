@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:motan="http://api.weibo.com/schema/motan"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+   http://api.weibo.com/schema/motan http://api.weibo.com/schema/motan.xsd">
+
+    <!-- reference to the remote service -->
+    <motan:referer id="remoteService" interface="com.my.proj.service.FooService" directUrl="localhost:8002"/>
+
+    <!-- zk single node -->
+    <!--<motan:registry regProtocol="zookeeper" name="my_zookeeper" address="127.0.0.1:2181"/>-->
+
+    <!-- zk multi nodes -->
+    <!--<motan:registry regProtocol="zookeeper" name="my_zookeeper" address="127.0.0.1:2181,127.0.0.1:2182,127.0.0.1:2183"/>-->
+
+    <!--<motan:referer id="remoteService" interface="com.my.proj.service.FooService" registry="my_zookeeper"/>--><!-- remoteService 以zk注册方式 -->
+
+</beans>
