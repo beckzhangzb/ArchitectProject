@@ -11,11 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class TransationTest extends TestBase {
 
     @Autowired
-    private UserService userService;
+//    private UserService userService;
 
     @Test
     public void testPrint(){
-        userService.insertData();
+//        userService.insertData();
         System.out.println("OUT PRINT");
     }
 }
