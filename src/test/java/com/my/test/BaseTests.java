@@ -1,0 +1,12 @@
+package com.my.test;
+
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest()
+public class BaseTests extends AbstractTransactionalTestNGSpringContextTests {
+
+}
