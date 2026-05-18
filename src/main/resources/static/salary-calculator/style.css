@@ -1,0 +1,366 @@
+/* Golden Theme CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1a2a6c, #2c3e50, #4a6491);
+    color: #fff;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Animated background elements */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 10% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(255, 215, 0, 0.1) 0%, transparent 20%),
+        radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.05) 0%, transparent 30%);
+    z-index: -1;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 20px;
+    animation: float 6s ease-in-out infinite;
+}
+
+header h1 {
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+    background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+    letter-spacing: 3px;
+}
+
+.subtitle {
+    font-size: 1.4rem;
+    color: #FFD700;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+}
+
+.input-section {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 40px;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+}
+
+.input-section h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #FFD700;
+    font-size: 2rem;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    color: #FFD700;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    font-size: 1.1rem;
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #FFD700;
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+}
+
+.golden-btn {
+    background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700);
+    color: #1a1a1a;
+    border: none;
+    padding: 16px 40px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-right: 15px;
+    transition: all 0.4s ease;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.golden-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.6);
+}
+
+.golden-btn:active {
+    transform: translateY(1px);
+}
+
+.golden-btn::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(30deg);
+    transition: all 0.6s ease;
+}
+
+.golden-btn:hover::after {
+    transform: rotate(30deg) translate(20%, 20%);
+}
+
+.reset-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: #FFD700;
+    border: 2px solid rgba(255, 215, 0, 0.5);
+    padding: 16px 40px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.reset-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+.result-section {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 40px;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.money-display {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.money-label {
+    font-size: 1.4rem;
+    color: #FFD700;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.money-value {
+    font-size: 5rem;
+    font-weight: bold;
+    background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
+    margin-bottom: 15px;
+    letter-spacing: 3px;
+    animation: pulse 2s infinite;
+}
+
+.money-per-second {
+    font-size: 1.8rem;
+    color: #FFD700;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+}
+
+.stats {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.stat-item {
+    text-align: center;
+    flex: 1;
+    min-width: 150px;
+}
+
+.stat-value {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #FFD700;
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+    margin-bottom: 10px;
+}
+
+.stat-label {
+    font-size: 1.1rem;
+    color: #FFD700;
+    font-weight: bold;
+}
+
+.coin-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+.coin {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(circle at 30% 30%, #FFD700, #FFA500);
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 215, 0, 0.6);
+    pointer-events: none;
+    animation: fall linear forwards;
+    z-index: 1001;
+}
+
+.coin::before {
+    content: '💰';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    animation: spin 3s infinite linear;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 1.2rem;
+    color: #FFD700;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+}
+
+/* Animations */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+@keyframes fall {
+    0% { 
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+    }
+    100% { 
+        transform: translateY(calc(100vh + 100px)) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+@keyframes spin {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2.5rem;
+    }
+    
+    .subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .money-value {
+        font-size: 3.5rem;
+    }
+    
+    .stat-value {
+        font-size: 2rem;
+    }
+    
+    .input-section, .result-section {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .money-value {
+        font-size: 2.5rem;
+    }
+    
+    .golden-btn, .reset-btn {
+        padding: 12px 25px;
+        font-size: 1.1rem;
+    }
+}
+
+/* Loading spinner */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 215, 0, 0.3);
+    border-radius: 50%;
+    border-top-color: #FFD700;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}

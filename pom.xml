@@ -120,7 +120,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>cn.6tail</groupId>
+            <artifactId>lunar</artifactId>
+            <version>1.7.7</version>
+        </dependency>
 
 <!-- RPC motan dependency start -->
         <dependency>

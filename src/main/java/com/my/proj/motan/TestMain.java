@@ -1,3 +1,4 @@
+/*
 package com.my.proj.motan;
 
 import com.my.proj.service.FooServiceAsync;
@@ -7,11 +8,13 @@ import com.weibo.api.motan.rpc.ResponseFuture;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+*/
 /**
  * Motan : 测试主类
  * @author zhangzb
  * @since 2017/7/19 14:53
- */
+ *//*
+
 public class TestMain {
     public static void main(String[] args) {
 
@@ -46,3 +49,4 @@ public class TestMain {
         future4.addListener(listener);
     }
 }
+*/
