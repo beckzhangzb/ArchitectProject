@@ -140,7 +140,7 @@ public class FortuneTeller {
     // --- 测试主函数 ---
     public static void main(String[] args) {
         // 模拟用户输入：姓名 徐泽，1990年5月20日 10点 出生 (男)
-        Map<String, Object> data = generateFortuneData("徐泽", 1990, 5, 20, 10, 0, 1);
+        Map<String, Object> data = generateFortuneData("徐泽", 1991, 5, 10, 10, 0, 1);
 
         System.out.println("【结构化命理数据】");
         printMap(data);

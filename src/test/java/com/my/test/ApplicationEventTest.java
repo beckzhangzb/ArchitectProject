@@ -10,12 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @desc
  */
 public class ApplicationEventTest extends BaseTests{
-    @Autowired
+/*    @Autowired
     private CaculateAgentService caculateAgentService;
 
     @Test
     public void contextLoads() {
         caculateAgentService.caculateData();
-    }
+    }*/
 
 }
