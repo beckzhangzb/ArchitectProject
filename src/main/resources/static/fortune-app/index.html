@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>八字推理算命 - 命理大师</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            background: linear-gradient(45deg, #ffd700, #ff6b6b, #ffd700);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            margin-bottom: 10px;
+        }
+
+        header .subtitle {
+            color: #a0a0a0;
+            font-size: 0.9rem;
+        }
+
+        .input-section {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .input-section h2 {
+            font-size: 1.2rem;
+            color: #ffd700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ccc;
+            font-size: 0.95rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #ffd700;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .gender-group {
+            display: flex;
+            gap: 15px;
+        }
+
+        .gender-option {
+            flex: 1;
+            padding: 14px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .gender-option.selected {
+            border-color: #ffd700;
+            background: rgba(255, 215, 0, 0.2);
+        }
+
+        .gender-option input {
+            display: none;
+        }
+
+        .btn-calculate {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(45deg, #ffd700, #ff8c00);
+            color: #1a1a1a;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        .btn-calculate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.6);
+        }
+
+        .btn-calculate:active {
+            transform: translateY(0);
+        }
+
+        .btn-calculate:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .result-section {
+            display: none;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .result-section.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .result-header h2 {
+            color: #ffd700;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .basic-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 12px;
+        }
+
+        .basic-info-item {
+            text-align: center;
+        }
+
+        .basic-info-item .label {
+            font-size: 0.8rem;
+            color: #a0a0a0;
+        }
+
+        .basic-info-item .value {
+            font-size: 1rem;
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        .bazi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .bazi-pillar {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 12px 8px;
+            text-align: center;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .bazi-pillar .title {
+            font-size: 0.75rem;
+            color: #888;
+            margin-bottom: 5px;
+        }
+
+        .bazi-pillar .gan {
+            font-size: 1.1rem;
+            color: #ffd700;
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+
+        .bazi-pillar .zhi {
+            font-size: 1.1rem;
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+
+        .detail-section {
+            margin-bottom: 20px;
+        }
+
+        .detail-section h3 {
+            color: #ffd700;
+            font-size: 1rem;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-row .label {
+            color: #a0a0a0;
+            font-size: 0.9rem;
+        }
+
+        .detail-row .value {
+            color: #fff;
+            font-size: 0.9rem;
+            text-align: right;
+        }
+
+        .wuxing-display {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+
+        .wuxing-item {
+            text-align: center;
+        }
+
+        .wuxing-item .icon {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .wuxing-item .name {
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .wuxing-item .value {
+            font-size: 1rem;
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .loading .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255, 215, 0, 0.3);
+            border-top-color: #ffd700;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .error-msg {
+            display: none;
+            background: rgba(255, 100, 100, 0.2);
+            border: 1px solid rgba(255, 100, 100, 0.5);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+        }
+
+        .error-msg.show {
+            display: block;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.5);
+            border-radius: 50px;
+            color: #ffd700;
+            text-decoration: none;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔮 八字推理算命</h1>
+            <p class="subtitle">命理大师 · 探寻命运密码</p>
+        </header>
+
+        <div class="input-section">
+            <h2>请输入您的信息</h2>
+
+            <div class="form-group">
+                <label>姓名</label>
+                <input type="text" id="name" placeholder="请输入您的姓名" value="张三">
+            </div>
+
+            <div class="form-group">
+                <label>出生日期</label>
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="number" id="year" placeholder="年" min="1900" max="2099" value="1990">
+                    </div>
+                    <div class="form-group">
+                        <input type="number" id="month" placeholder="月" min="1" max="12" value="5">
+                    </div>
+                    <div class="form-group">
+                        <input type="number" id="day" placeholder="日" min="1" max="31" value="15">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>出生时辰</label>
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="number" id="hour" placeholder="时" min="0" max="23" value="10">
+                    </div>
+                    <div class="form-group">
+                        <input type="number" id="minute" placeholder="分" min="0" max="59" value="30">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>性别</label>
+                <div class="gender-group">
+                    <label class="gender-option selected">
+                        <input type="radio" name="gender" value="1" checked>
+                        <span>男 🚹</span>
+                    </label>
+                    <label class="gender-option">
+                        <input type="radio" name="gender" value="0">
+                        <span>女 🚺</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>地区</label>
+                <input type="text" id="region" placeholder="请输入您所在的地区" value="北京">
+            </div>
+
+            <button class="btn-calculate" id="calculateBtn">开始推理命运</button>
+        </div>
+
+        <div class="error-msg" id="errorMsg"></div>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>命理大师正在推算中...</p>
+        </div>
+
+        <div class="result-section" id="resultSection">
+            <div class="result-header">
+                <h2 id="resultName">张三 的命理报告</h2>
+                <p class="subtitle" id="resultTime"></p>
+            </div>
+
+            <div class="basic-info" id="basicInfo"></div>
+
+            <h3 style="color:#ffd700;margin-bottom:15px;text-align:center;">四柱排盘</h3>
+            <div class="bazi-grid" id="baziGrid"></div>
+
+            <div class="detail-section">
+                <h3>五行分布</h3>
+                <div class="wuxing-display" id="wuxingDisplay"></div>
+                <div id="wuxingDetail"></div>
+            </div>
+
+            <div class="detail-section">
+                <h3>十神配置</h3>
+                <div id="shishenDetail"></div>
+            </div>
+
+            <div class="detail-section">
+                <h3>命理参考</h3>
+                <div id="mingliReference"></div>
+            </div>
+
+            <div class="detail-section">
+                <h3>姓名五格分析</h3>
+                <div id="nameAnalysis"></div>
+            </div>
+
+            <div style="text-align:center;">
+                <a class="back-btn" onclick="window.history.back()">重新测算</a>
+            </div>
+        </div>
+
+        <footer>
+            <p>本结果仅供参考娱乐</p>
+        </footer>
+    </div>
+
+    <script>
+        document.querySelectorAll('.gender-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.gender-option').forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+
+        document.getElementById('calculateBtn').addEventListener('click', calculateFortune);
+
+        async function calculateFortune() {
+            const name = document.getElementById('name').value.trim();
+            const year = parseInt(document.getElementById('year').value);
+            const month = parseInt(document.getElementById('month').value);
+            const day = parseInt(document.getElementById('day').value);
+            const hour = parseInt(document.getElementById('hour').value);
+            const minute = parseInt(document.getElementById('minute').value);
+            const gender = parseInt(document.querySelector('input[name="gender"]:checked').value);
+            const region = document.getElementById('region').value.trim();
+
+            if (!name) {
+                showError('请输入姓名');
+                return;
+            }
+
+            hideError();
+            showLoading(true);
+            document.getElementById('resultSection').classList.remove('show');
+
+            try {
+                const response = await fetch('/api/fortune/calculate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        year: year,
+                        month: month,
+                        day: day,
+                        hour: hour,
+                        minute: minute,
+                        gender: gender,
+                        region: region
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    displayResult(data);
+                } else {
+                    showError(data.message || '计算失败，请稍后重试');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showError('网络错误，请检查服务器是否启动');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        function displayResult(data) {
+            document.getElementById('resultName').textContent = name + ' 的命理报告';
+            document.getElementById('resultTime').textContent = '测算时间: ' + new Date().toLocaleString();
+
+            const basicInfo = data['命主信息'];
+            const basicHtml = `
+                <div class="basic-info-item">
+                    <div class="label">公历生日</div>
+                    <div class="value">${basicInfo['公历生日'].split(' ')[0]}</div>
+                </div>
+                <div class="basic-info-item">
+                    <div class="label">农历生日</div>
+                    <div class="value">${basicInfo['农历生日'].split(' ')[0]}</div>
+                </div>
+                <div class="basic-info-item">
+                    <div class="label">生肖</div>
+                    <div class="value">${basicInfo['生肖']}</div>
+                </div>
+                <div class="basic-info-item">
+                    <div class="label">星座</div>
+                    <div class="value">${basicInfo['星座']}</div>
+                </div>
+            `;
+            document.getElementById('basicInfo').innerHTML = basicHtml;
+
+            const bazi = data['八字排盘'];
+            const baziGridHtml = `
+                <div class="bazi-pillar">
+                    <div class="title">年柱</div>
+                    <div class="gan">${bazi['年柱'].substring(0,1)}</div>
+                    <div class="zhi">${bazi['年柱'].substring(1)}</div>
+                </div>
+                <div class="bazi-pillar">
+                    <div class="title">月柱</div>
+                    <div class="gan">${bazi['月柱'].substring(0,1)}</div>
+                    <div class="zhi">${bazi['月柱'].substring(1)}</div>
+                </div>
+                <div class="bazi-pillar">
+                    <div class="title">日柱</div>
+                    <div class="gan">${bazi['日柱'].substring(0,1)}</div>
+                    <div class="zhi">${bazi['日柱'].substring(1)}</div>
+                </div>
+                <div class="bazi-pillar">
+                    <div class="title">时柱</div>
+                    <div class="gan">${bazi['时柱'].substring(0,1)}</div>
+                    <div class="zhi">${bazi['时柱'].substring(1)}</div>
+                </div>
+            `;
+            document.getElementById('baziGrid').innerHTML = baziGridHtml;
+
+            const wuxing = data['五行分布'];
+            const wuxingDisplay = document.getElementById('wuxingDisplay');
+            wuxingDisplay.innerHTML = `
+                <div class="wuxing-item">
+                    <div class="icon">🌲</div>
+                    <div class="value">${wuxing['年柱五行']}</div>
+                    <div class="name">年</div>
+                </div>
+                <div class="wuxing-item">
+                    <div class="icon">🔥</div>
+                    <div class="value">${wuxing['月柱五行']}</div>
+                    <div class="name">月</div>
+                </div>
+                <div class="wuxing-item">
+                    <div class="icon">☀️</div>
+                    <div class="value">${wuxing['日柱五行']}</div>
+                    <div class="name">日</div>
+                </div>
+                <div class="wuxing-item">
+                    <div class="icon">💧</div>
+                    <div class="value">${wuxing['时柱五行']}</div>
+                    <div class="name">时</div>
+                </div>
+            `;
+
+            const wuxingDetail = document.getElementById('wuxingDetail');
+            wuxingDetail.innerHTML = `
+                <div class="detail-row">
+                    <span class="label">年柱纳音</span>
+                    <span class="value">${data['完整四柱排盘'][0]['纳音']}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">月柱纳音</span>
+                    <span class="value">${data['完整四柱排盘'][1]['纳音']}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">日柱纳音</span>
+                    <span class="value">${data['完整四柱排盘'][2]['纳音']}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">时柱纳音</span>
+                    <span class="value">${data['完整四柱排盘'][3]['纳音']}</span>
+                </div>
+            `;
+
+            const shishen = data['八字十神'];
+            const shishenDetail = document.getElementById('shishenDetail');
+            shishenDetail.innerHTML = `
+                <div class="detail-row">
+                    <span class="label">年干十神</span>
+                    <span class="value">${shishen['年干十神']}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">月干十神</span>
+                    <span class="value">${shishen['月干十神']}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">日支十神</span>
+                    <span class="value">${shishen['日支十神']}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">时干十神</span>
+                    <span class="value">${shishen['时干十神']}</span>
+                </div>
+            `;
+
+            const mingli = data['命理参考'];
+            const mingliReference = document.getElementById('mingliReference');
+            mingliReference.innerHTML = `
+                <div class="detail-row">
+                    <span class="label">日主</span>
+                    <span class="value">${mingli['日主(命主五行)']}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">日柱纳音</span>
+                    <span class="value">${mingli['日柱纳音']}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">当前流年</span>
+                    <span class="value">${data['当前流年干支']}</span>
+                </div>
+            `;
+
+            const nameData = data['姓名五格分析'];
+            const nameAnalysis = document.getElementById('nameAnalysis');
+            nameAnalysis.innerHTML = `
+                <div class="detail-row">
+                    <span class="label">天格(祖运)</span>
+                    <span class="value">${nameData['天格(祖运)']}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">人格(主运)</span>
+                    <span class="value">${nameData['人格(主运/性格核心)']}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">地格(前运)</span>
+                    <span class="value">${nameData['地格(前运/配偶子女)']}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">外格(副运)</span>
+                    <span class="value">${nameData['外格(副运/社交)']}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">总格(后运)</span>
+                    <span class="value">${nameData['总格(后运/晚年)']}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">性格推断</span>
+                    <span class="value">${nameData['核心人格吉凶推断']}</span>
+                </div>
+            `;
+
+            document.getElementById('resultSection').classList.add('show');
+        }
+
+        function showLoading(show) {
+            document.getElementById('loading').classList.toggle('show', show);
+            document.getElementById('calculateBtn').disabled = show;
+        }
+
+        function showError(msg) {
+            const errorEl = document.getElementById('errorMsg');
+            errorEl.textContent = msg;
+            errorEl.classList.add('show');
+        }
+
+        function hideError() {
+            document.getElementById('errorMsg').classList.remove('show');
+        }
+    </script>
+</body>
+</html>

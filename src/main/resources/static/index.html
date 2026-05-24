@@ -79,7 +79,23 @@
             transform: translateY(-3px);
             box-shadow: 0 10px 30px rgba(255, 215, 0, 0.6);
         }
-        
+
+        .btn-secondary {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.6);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
         .footer {
             margin-top: 40px;
             font-size: 1rem;
@@ -103,16 +119,19 @@
                 <p>金色财富，秒秒增值</p>
             </div>
             <div class="feature">
+                <h3>八字推理算命</h3>
+                <p>命理大师，探寻命运密码</p>
+            </div>
+            <div class="feature">
                 <h3>优雅设计</h3>
                 <p>华丽动效，极致体验</p>
             </div>
-            <div class="feature">
-                <h3>响应式</h3>
-                <p>适配所有设备</p>
-            </div>
         </div>
         
-        <button onclick="window.location.href='/salary-calculator/index.html'" class="btn">启动工资计算器</button>
+        <div class="button-group">
+            <button onclick="window.location.href='/salary-calculator/index.html'" class="btn">启动工资计算器</button>
+            <button onclick="window.location.href='/fortune-app/index.html'" class="btn btn-secondary">启动八字算命</button>
+        </div>
         
         <p class="footer">✨ 点击按钮开始您的金色财富之旅 ✨</p>
     </div>
